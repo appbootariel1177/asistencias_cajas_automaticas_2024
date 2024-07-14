@@ -5,22 +5,14 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    height: 100vh;
     margin: 0;
-    padding: 20px;
-    box-sizing: border-box;
 }
 
 .container {
     text-align: center;
-    width: 100%;
-    max-width: 1200px;
+    width: 80%;
     margin: auto;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 0 0 10px #ff8c00, 0 0 0 15px #fff;
-    padding: 20px;
-    box-sizing: border-box;
 }
 
 h1 {
@@ -33,9 +25,6 @@ h1 {
     margin-bottom: 20px;
     border-radius: 5px;
     border: none;
-    width: calc(100% - 20px);
-    max-width: 300px;
-    box-sizing: border-box;
 }
 
 table {
@@ -43,39 +32,36 @@ table {
     border-collapse: separate;
     border-spacing: 0;
     margin-bottom: 20px;
+    border: 2px solid transparent;
     border-radius: 15px;
-    overflow: hidden;
+    box-shadow: 0 0 10px rgba(255, 140, 0, 0.5), 0 0 20px rgba(255, 140, 0, 0.5), 0 0 30px rgba(255, 140, 0, 0.5);
+    background-clip: padding-box;
+    background-color: #000;
 }
 
 th, td {
-    border: none;
-    padding: 5px 10px;
+    padding: 10px;
     text-align: left;
-    word-wrap: break-word; /* Para que el texto se ajuste en celdas pequeñas */
 }
 
 thead {
     background-color: #ff8c00;
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
 }
 
 tbody tr {
-    background-color: #333;
-    border-bottom: 1px solid #ffa07a; /* Naranja suave */
-}
-
-tbody tr:nth-child(even) {
-    background-color: #444;
-    border-bottom: 1px solid #ffa07a; /* Naranja suave */
-}
-
-tbody tr:hover {
-    background-color: #555;
+    border-bottom: 1px solid #fff;
 }
 
 tbody tr:last-child {
     border-bottom: none;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #333;
+}
+
+tbody tr:hover {
+    background-color: #555;
 }
 
 button {
@@ -89,34 +75,4 @@ button {
 
 button:hover {
     background-color: #ff6500;
-}
-
-/* Consultas de medios para diferentes tamaños de pantalla */
-@media (max-width: 768px) {
-    th, td {
-        padding: 5px;
-    }
-    
-    #searchInput {
-        width: calc(100% - 10px);
-        margin-bottom: 10px;
-    }
-}
-
-@media (max-width: 480px) {
-    th, td {
-        padding: 2px 5px;
-    }
-    
-    #searchInput {
-        width: 100%;
-    }
-    
-    button {
-        padding: 8px 16px;
-    }
-    
-    h1 {
-        font-size: 1.5em;
-    }
 }

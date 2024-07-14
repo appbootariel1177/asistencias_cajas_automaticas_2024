@@ -1,20 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Google Sheets Data</title>
+    <title>Datos desde Google Sheets</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <h1>Google Sheets Data</h1>
-        <input type="text" id="searchInput" placeholder="Search...">
-        <table id="dataTable">
-            <thead id="tableHeaders"></thead>
-            <tbody id="tableBody"></tbody>
+        <h1>Datos desde Google Sheets</h1>
+        <input type="text" id="searchInput" placeholder="Buscar...">
+        <table>
+            <thead id="tableHeaders">
+                <!-- Encabezados de tabla se agregan dinámicamente -->
+            </thead>
+            <tbody id="tableBody">
+                <!-- Filas de tabla se agregan dinámicamente -->
+            </tbody>
         </table>
-        <button id="downloadPdf">Download PDF</button>
+        <button id="downloadPdf">Descargar PDF</button>
     </div>
     <script src="script.js"></script>
 </body>

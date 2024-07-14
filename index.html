@@ -1,186 +1,34 @@
 <!DOCTYPE html>
-<html>
-<head><meta http-equiv="cache-control" content="no-cache"><meta http-equiv="Pragma" content="no-cache"><meta http-equiv="Expires" content="-1"><style type="text/css">body {
-  font-family: Arial, sans-serif;
-  background-color: #f0f0f0;
-  margin: 0;
-  padding: 0;
-}
-
-.container {
-  max-width: 800px;
-  margin: 20px auto;
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 15px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-h1 {
-  text-align: center;
-  color: #333;
-}
-
-.table-container {
-  margin-top: 20px;
-  overflow-x: auto;
-}
-
-button {
-  display: block;
-  margin: 20px auto;
-  padding: 12px 24px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s ease;
-}
-
-button:hover {
-  background-color: #45a049;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  border: 2px solid #ddd;
-  background-color: #fff;
-}
-
-table td,
-table th {
-  border: 1px solid #ddd;
-  padding: 12px;
-  text-align: left;
-}
-
-.table-container table th {
-  background-color: #f2f2f2;
-  font-weight: bold;
-  border: 1px solid #ddd;
-}
-
-.header-row {
-  font-weight: bold;
-  background-color: #f2f2f2;
-}
-
-.table-container table td {
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 12px;
-  text-align: left;
-}
-
-.table-container table .presente {
-  background-color: #d4edd7;
-}
-
-.table-container table .ausente {
-  background-color: #fddede;
-}
-
-.filter-input {
-  width: 100%;
-  padding: 12px;
-  margin-bottom: 10px;
-  box-sizing: border-box;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 14px;
-}
-
-.filter-input:focus {
-  outline: none;
-  border-color: #66afe9;
-  box-shadow: 0 0 5px #66afe9;
-}
-</style>
-
-
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="cache-control" content="no-cache">
-  <meta http-equiv="Pragma" content="no-cache">
-  <meta http-equiv="Expires" content="-1">
-  <title>Datos del Google Sheet</title>
-  <link rel="stylesheet" href="css/style.css">
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Datos de Evaluación</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.13/jspdf.plugin.autotable.min.js"></script>
 </head>
 <body>
-  <div class="container">
-    <h1>Informe asistencias Cajas Automaticas Modulo -II</h1>
-    <div id="sheetData" class="table-container"><input type="text" placeholder="Filtrar por nombre de empresa" class="filter-input"><table><tbody><tr class="header-row"><td>Nombre y Apellido</td><td>Empresas</td><td>7/10/2024, 2:21:12 PM</td></tr><tr><td>Rebello Mauro Ariel</td><td>Ashira Marin y Maritin</td><td class="presente">Presente</td></tr><tr><td>Beneitez Leandro</td><td>Cliba San Isidro</td><td class="presente">Presente</td></tr><tr><td>Bono Ramon</td><td>Cliba San Isidro</td><td class="presente">Presente</td></tr><tr><td>Juarez Maximiliano  Juan</td><td>Cliba San Isidro</td><td class="presente">Presente</td></tr><tr><td>Cuba Orozco Kevin Gerardo</td><td>Contenedores Hugo</td><td class="presente">Presente</td></tr><tr><td>Botigue  Ricardo Damian</td><td>Logisu s.a</td><td class="presente">Presente</td></tr><tr><td>Garcia Marcos</td><td>Hesurmet</td><td class="presente">Presente</td></tr><tr><td>Soliz Ariel Ignacio</td><td>Lusa</td><td class="presente">Presente</td></tr><tr><td>Buchelli Gari Claudio Adrian</td><td>Nittida</td><td class="presente">Presente</td></tr><tr><td>Vazquez Nelson Gabriel</td><td>Nittida</td><td class="presente">Presente</td></tr><tr><td>Matko Gustavo Marcelo</td><td>Nittida</td><td class="presente">Presente</td></tr><tr><td>Britez Pablo Alejandro</td><td>Santa Elena</td><td class="presente">Presente</td></tr><tr><td>Fernandez Matias Emmanuel</td><td>Sertec</td><td class="presente">Presente</td></tr><tr><td>Aranda Claudio Daniel</td><td>Solbayres</td><td class="presente">Presente</td></tr><tr><td>Leguizamon  Matias</td><td>Solbayres</td><td class="presente">Presente</td></tr><tr><td>Prosman Maximiliano Jose</td><td>Tts Olivos Trigre</td><td class="presente">Presente</td></tr><tr><td>Franco Roberto Raul</td><td>Urbasur</td><td class="presente">Presente</td></tr><tr><td>Gonzalez Carlos Emiliano</td><td>Urbasur</td><td class="presente">Presente</td></tr></tbody></table></div>
-  </div>
-  <script src="js/script.js"></script>
-
-
-<script>async function loadSheetData() {
-  try {
-    const response = await fetch('https://script.google.com/macros/s/AKfycbwcK5ViOOP92L5iqgGHDAjJhy9l_eG7kGOPN1PBnFdjzmLP_MLCqFy10AQ6Hew1D-mb/exec');
-    const data = await response.json();
-    renderTable(data);
-  } catch (error) {
-    console.error('Error al cargar los datos:', error);
-  }
-}
-
-function renderTable(data) {
-  const sheetDataDiv = document.getElementById('sheetData');
-  sheetDataDiv.innerHTML = '';
-
-  const table = document.createElement('table');
-  const tbody = document.createElement('tbody');
-
-  data.forEach((row, index) => {
-    const tr = document.createElement('tr');
-
-    if (index === 0) {
-      tr.classList.add('header-row');
-    }
-
-    row.forEach((cell, cellIndex) => {
-      const td = document.createElement('td');
-      td.textContent = cell;
-
-      if (cellIndex > 0 && (cell.toLowerCase() === 'presente' || cell.toLowerCase() === 'ausente')) {
-        td.classList.add(cell.toLowerCase());
-      }
-
-      tr.appendChild(td);
-    });
-
-    tbody.appendChild(tr);
-  });
-
-  table.appendChild(tbody);
-  sheetDataDiv.appendChild(table);
-
-  const filterInput = document.createElement('input');
-  filterInput.type = 'text';
-  filterInput.placeholder = 'Filtrar por nombre de empresa';
-  filterInput.classList.add('filter-input');
-
-  filterInput.addEventListener('input', function() {
-    const filterValue = this.value.toLowerCase();
-    tbody.childNodes.forEach((tr, index) => {
-      if (index === 0) {
-        tr.style.display = ''; // Siempre muestra la primera fila
-        return; // Salta a la siguiente iteración
-      }
-      const empresaCell = tr.childNodes[1];
-      if (empresaCell.textContent.toLowerCase().includes(filterValue)) {
-        tr.style.display = '';
-      } else {
-        tr.style.display = 'none';
-      }
-    });
-  });
-
-  sheetDataDiv.insertBefore(filterInput, table);
-}
-
-document.addEventListener('DOMContentLoaded', loadSheetData);
-</script></body>
+    <div class="container">
+        <h1>Datos de Evaluación</h1>
+        <div class="filters">
+            <input type="text" id="nameFilter" placeholder="Filtrar por nombre">
+            <input type="text" id="companyFilter" placeholder="Filtrar por empresa">
+        </div>
+        <div class="table-container">
+            <table id="data-table">
+                <thead>
+                    <tr>
+                        <!-- Encabezados se agregarán dinámicamente -->
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Filas se agregarán dinámicamente -->
+                </tbody>
+            </table>
+        </div>
+        <button id="share-btn">Compartir datos</button>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -61,19 +61,46 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             });
 
-            // Funcionalidad de descarga en PDF
+            // Funcionalidad de descarga en PDF usando jsPDF y autoTable
             downloadPdf.addEventListener('click', function () {
-                const printWindow = window.open('', '', 'height=600,width=800');
-                printWindow.document.write('<html><head><title>Datos desde Google Sheets</title>');
-                printWindow.document.write('<link rel="stylesheet" href="styles.css">');
-                printWindow.document.write('<style>h1 { writing-mode: vertical-rl; transform: rotate(180deg); }</style>');
-                printWindow.document.write('</head><body>');
-                printWindow.document.write('<h1>Datos desde Google Sheets</h1>');
-                printWindow.document.write(dataTable.outerHTML);
-                printWindow.document.write('</body></html>');
-                printWindow.document.close();
-                printWindow.focus();
-                printWindow.print();
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+                
+                doc.text('Datos desde Google Sheets', 10, 10);
+
+                // Cálculo del alto máximo permitido para ajustar todo en una sola página
+                const pageHeight = doc.internal.pageSize.height;
+                const yOffset = 20;
+                const maxTableHeight = pageHeight - yOffset - 10; // Descontar márgenes
+
+                // Configuración de autoTable para asegurar que todo el contenido se ajuste en una sola página
+                doc.autoTable({
+                    head: [headers.filter((header, index) => columnsWithData[index])],
+                    body: rows.map(row => row.filter((cell, index) => columnsWithData[index] && cell !== '')),
+                    startY: yOffset,
+                    theme: 'striped',
+                    styles: {
+                        cellPadding: 2,
+                        fontSize: 10,
+                        overflow: 'linebreak' // Ajustar contenido dentro de las celdas
+                    },
+                    headStyles: {
+                        fillColor: [255, 140, 0]
+                    },
+                    bodyStyles: {
+                        fillColor: [51, 51, 51],
+                        textColor: [255, 255, 255]
+                    },
+                    alternateRowStyles: {
+                        fillColor: [68, 68, 68]
+                    },
+                    tableWidth: 'auto', // Ajustar automáticamente el ancho de la tabla
+                    showHead: 'everyPage', // Mostrar encabezados en cada página
+                    margin: { top: 10, bottom: 10 }, // Márgenes del contenido
+                    pageBreak: 'avoid' // Evitar saltos de página
+                });
+
+                doc.save('datos_google_sheets.pdf');
             });
         })
         .catch(err => console.error('Error fetching data from Google Sheets:', err));

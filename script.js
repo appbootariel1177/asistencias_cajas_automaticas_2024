@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 const doc = new jsPDF();
 
                 // Configurar título en vertical
-                doc.text('Datos desde Google Sheets', 15, 15, { angle: 90 });
+                doc.text('zonaD tools', 15, 15, { angle: 90 });
 
                 // Preparar datos de la tabla
                 const head = [];

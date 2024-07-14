@@ -1,33 +1,20 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Datos de Evaluación</title>
+    <title>Datos desde Google Sheets</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.13/jspdf.plugin.autotable.min.js"></script>
 </head>
 <body>
     <div class="container">
-        <h1>Datos de Evaluación</h1>
-        <div class="filters">
-            <input type="text" id="nameFilter" placeholder="Filtrar por nombre">
-            <input type="text" id="companyFilter" placeholder="Filtrar por empresa">
-        </div>
-        <div class="table-container">
-            <table id="data-table">
-                <thead>
-                    <tr>
-                        <!-- Encabezados se agregarán dinámicamente -->
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Filas se agregarán dinámicamente -->
-                </tbody>
-            </table>
-        </div>
-        <button id="share-btn">Compartir datos</button>
+        <h1>Datos desde Google Sheets</h1>
+        <input type="text" id="searchInput" placeholder="Buscar...">
+        <table id="dataTable">
+            <thead id="tableHeaders"></thead>
+            <tbody id="tableBody"></tbody>
+        </table>
+        <button id="downloadPdf">Descargar PDF</button>
     </div>
     <script src="script.js"></script>
 </body>

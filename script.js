@@ -33,15 +33,13 @@ document.addEventListener('DOMContentLoaded', function () {
             rows.forEach(row => {
                 const tr = document.createElement('tr');
                 row.forEach((cell, index) => {
-                    if (columnsWithData[index] && cell !== '') {
+                    if (columnsWithData[index]) {
                         const td = document.createElement('td');
                         td.innerText = cell;
                         tr.appendChild(td);
                     }
                 });
-                if (tr.childElementCount > 0) {
-                    tableBody.appendChild(tr);
-                }
+                tableBody.appendChild(tr);
             });
 
             // Funcionalidad de filtrado
@@ -61,46 +59,39 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             });
 
-            // Funcionalidad de descarga en PDF usando jsPDF y autoTable
+            // Funcionalidad de descarga en PDF
             downloadPdf.addEventListener('click', function () {
                 const { jsPDF } = window.jspdf;
                 const doc = new jsPDF();
-                
-                doc.text('Datos desde Google Sheets', 10, 10);
 
-                // Cálculo del alto máximo permitido para ajustar todo en una sola página
-                const pageHeight = doc.internal.pageSize.height;
-                const yOffset = 20;
-                const maxTableHeight = pageHeight - yOffset - 10; // Descontar márgenes
+                doc.text('Datos desde Google Sheets', 10, 10, { angle: 90 });
 
-                // Configuración de autoTable para asegurar que todo el contenido se ajuste en una sola página
-                doc.autoTable({
-                    head: [headers.filter((header, index) => columnsWithData[index])],
-                    body: rows.map(row => row.filter((cell, index) => columnsWithData[index] && cell !== '')),
-                    startY: yOffset,
-                    theme: 'striped',
-                    styles: {
-                        cellPadding: 2,
-                        fontSize: 10,
-                        overflow: 'linebreak' // Ajustar contenido dentro de las celdas
-                    },
-                    headStyles: {
-                        fillColor: [255, 140, 0]
-                    },
-                    bodyStyles: {
-                        fillColor: [51, 51, 51],
-                        textColor: [255, 255, 255]
-                    },
-                    alternateRowStyles: {
-                        fillColor: [68, 68, 68]
-                    },
-                    tableWidth: 'auto', // Ajustar automáticamente el ancho de la tabla
-                    showHead: 'everyPage', // Mostrar encabezados en cada página
-                    margin: { top: 10, bottom: 10 }, // Márgenes del contenido
-                    pageBreak: 'avoid' // Evitar saltos de página
+                const head = [];
+                const body = [];
+
+                tableHeaders.querySelectorAll('th').forEach(th => {
+                    head.push(th.innerText);
                 });
 
-                doc.save('datos_google_sheets.pdf');
+                tableBody.querySelectorAll('tr').forEach(tr => {
+                    const row = [];
+                    tr.querySelectorAll('td').forEach(td => {
+                        row.push(td.innerText);
+                    });
+                    body.push(row);
+                });
+
+                doc.autoTable({
+                    head: [head],
+                    body: body,
+                    startY: 20,
+                    styles: {
+                        halign: 'left',
+                        valign: 'middle',
+                    },
+                });
+
+                doc.save('data.pdf');
             });
         })
         .catch(err => console.error('Error fetching data from Google Sheets:', err));

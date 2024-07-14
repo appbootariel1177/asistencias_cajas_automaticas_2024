@@ -1,82 +1,122 @@
 body {
+    background-color: #000;
+    color: #fff;
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0; /* Color de fondo suave */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
     margin: 0;
-    padding: 0;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 .container {
-    width: 90%;
-    max-width: 800px;
-    margin: 20px auto;
-    background-color: #ffffff; /* Fondo blanco */
-    border-radius: 10px; /* Bordes redondeados */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+    text-align: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 0 0 10px #ff8c00, 0 0 0 15px #fff;
     padding: 20px;
     box-sizing: border-box;
 }
 
 h1 {
-    color: #4CAF50; /* Verde suave para el título */
-    text-align: center;
-}
-
-.filters {
+    color: #ff8c00;
     margin-bottom: 20px;
-    text-align: center;
 }
 
-.filters input[type="text"] {
-    width: 100%; /* Ancho completo para los campos de filtro */
+#searchInput {
     padding: 10px;
-    margin: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px; /* Bordes redondeados para los campos de filtro */
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: none;
+    width: calc(100% - 20px);
+    max-width: 300px;
     box-sizing: border-box;
 }
 
-.table-container {
-    overflow-x: auto; /* Permitir desplazamiento horizontal en tablas grandes */
-}
-
-#data-table {
+table {
     width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px; /* Separación superior de la tabla */
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-bottom: 20px;
+    border-radius: 15px;
+    overflow: hidden;
 }
 
-#data-table th, #data-table td {
-    padding: 12px 15px;
+th, td {
+    border: none;
+    padding: 5px 10px;
     text-align: left;
-    border-bottom: 1px solid #ddd; /* Borde inferior gris claro */
+    word-wrap: break-word; /* Para que el texto se ajuste en celdas pequeñas */
 }
 
-#data-table th {
-    background-color: #4CAF50; /* Verde suave para el encabezado de la tabla */
-    color: white;
+thead {
+    background-color: #ff8c00;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
 }
 
-#data-table tbody tr:nth-child(even) {
-    background-color: #f2f2f2; /* Fondo gris claro para filas pares */
+tbody tr {
+    background-color: #333;
+    border-bottom: 1px solid #ffa07a; /* Naranja suave */
 }
 
-#data-table tbody tr:hover {
-    background-color: #ddd; /* Fondo gris más oscuro al pasar el ratón */
+tbody tr:nth-child(even) {
+    background-color: #444;
+    border-bottom: 1px solid #ffa07a; /* Naranja suave */
 }
 
-#share-btn {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    margin-top: 20px;
-    background-color: #4CAF50;
-    color: white;
+tbody tr:hover {
+    background-color: #555;
+}
+
+tbody tr:last-child {
+    border-bottom: none;
+}
+
+button {
+    padding: 10px 20px;
     border: none;
     border-radius: 5px;
+    background-color: #ff8c00;
+    color: #fff;
     cursor: pointer;
-    text-align: center;
 }
 
-#share-btn:hover {
-    background-color: #45a049;
+button:hover {
+    background-color: #ff6500;
+}
+
+/* Consultas de medios para diferentes tamaños de pantalla */
+@media (max-width: 768px) {
+    th, td {
+        padding: 5px;
+    }
+    
+    #searchInput {
+        width: calc(100% - 10px);
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    th, td {
+        padding: 2px 5px;
+    }
+    
+    #searchInput {
+        width: 100%;
+    }
+    
+    button {
+        padding: 8px 16px;
+    }
+    
+    h1 {
+        font-size: 1.5em;
+    }
 }

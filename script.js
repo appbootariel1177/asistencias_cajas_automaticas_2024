@@ -1,81 +1,78 @@
-const sheetId = '1QYYRt7uN6RJbAuyp7ZFAuOKg1ANG5QqVJdpDk0AFKdw';
-const base = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?`;
-const sheetName = 'Evaluaciones  Cajas automaticas m-II 2024';
-const query = encodeURIComponent('Select *');
-const url = `${base}&sheet=${sheetName}&tq=${query}`;
+document.addEventListener('DOMContentLoaded', function () {
+    const sheetId = '1QYYRt7uN6RJbAuyp7ZFAuOKg1ANG5QqVJdpDk0AFKdw';
+    const base = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?`;
+    const sheetName = 'Hoja 1';
+    const query = encodeURIComponent('Select *');
+    const url = `${base}&sheet=${sheetName}&tq=${query}`;
+    const dataTable = document.getElementById('dataTable');
+    const tableHeaders = document.getElementById('tableHeaders');
+    const tableBody = document.getElementById('tableBody');
+    const searchInput = document.getElementById('searchInput');
+    const downloadPdf = document.getElementById('downloadPdf');
 
-fetch(url)
-    .then(res => res.text())
-    .then(rep => {
-        const data = JSON.parse(rep.substr(47).slice(0, -2));
-        const table = document.getElementById('data-table');
-        const thead = table.querySelector('thead tr');
-        const tbody = table.querySelector('tbody');
+    fetch(url)
+        .then(res => res.text())
+        .then(rep => {
+            const data = JSON.parse(rep.substring(47).slice(0, -2));
+            const headers = data.table.cols.map(col => col.label);
+            const rows = data.table.rows.map(row => row.c.map(cell => (cell ? cell.v : '')));
 
-        // Añadir encabezados
-        data.table.cols.forEach(col => {
-            const th = document.createElement('th');
-            th.textContent = col.label;
-            thead.appendChild(th);
-        });
+            // Determinar qué columnas tienen datos
+            const columnsWithData = headers.map((header, index) => rows.some(row => row[index] !== ''));
 
-        // Añadir datos
-        data.table.rows.forEach(row => {
-            const tr = document.createElement('tr');
-            row.c.forEach(cell => {
-                const td = document.createElement('td');
-                td.textContent = cell ? cell.v : '';
-                tr.appendChild(td);
+            // Agregar solo encabezados de columnas que tienen datos
+            headers.forEach((header, index) => {
+                if (columnsWithData[index]) {
+                    const th = document.createElement('th');
+                    th.innerText = header;
+                    tableHeaders.appendChild(th);
+                }
             });
-            tbody.appendChild(tr);
-        });
 
-        // Añadir funcionalidad de filtros
-        document.getElementById('nameFilter').addEventListener('input', filterTable);
-        document.getElementById('companyFilter').addEventListener('input', filterTable);
-    })
-    .catch(err => console.error('Error al obtener los datos:', err));
+            // Agregar filas a la tabla
+            rows.forEach(row => {
+                const tr = document.createElement('tr');
+                row.forEach((cell, index) => {
+                    if (columnsWithData[index] && cell !== '') {
+                        const td = document.createElement('td');
+                        td.innerText = cell;
+                        tr.appendChild(td);
+                    }
+                });
+                if (tr.childElementCount > 0) {
+                    tableBody.appendChild(tr);
+                }
+            });
 
-function filterTable() {
-    const nameFilter = document.getElementById('nameFilter').value.trim().toLowerCase();
-    const companyFilter = document.getElementById('companyFilter').value.trim().toLowerCase();
-    const rows = document.querySelectorAll('#data-table tbody tr');
+            // Funcionalidad de filtrado
+            searchInput.addEventListener('keyup', function () {
+                const filter = searchInput.value.toLowerCase();
+                const trs = tableBody.getElementsByTagName('tr');
+                for (let i = 0; i < trs.length; i++) {
+                    const tds = trs[i].getElementsByTagName('td');
+                    let showRow = false;
+                    for (let j = 0; j < tds.length; j++) {
+                        if (tds[j].innerText.toLowerCase().indexOf(filter) > -1) {
+                            showRow = true;
+                            break;
+                        }
+                    }
+                    trs[i].style.display = showRow ? '' : 'none';
+                }
+            });
 
-    rows.forEach(row => {
-        const nameCell = row.cells[0].textContent.trim().toLowerCase(); // Ajusta el índice según tu hoja
-        const companyCell = row.cells[1].textContent.trim().toLowerCase(); // Ajusta el índice según tu hoja
-
-        if (nameCell.includes(nameFilter) && companyCell.includes(companyFilter)) {
-            row.style.display = '';
-        } else {
-            row.style.display = 'none';
-        }
-    });
-}
-
-document.getElementById('share-btn').addEventListener('click', () => {
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
-    const table = document.getElementById('data-table');
-    const rows = document.querySelectorAll('#data-table tbody tr');
-    const filteredRows = Array.from(rows).filter(row => row.style.display !== 'none');
-
-    const body = filteredRows.map(row => {
-        return Array.from(row.cells).map(cell => cell.textContent);
-    });
-
-    doc.autoTable({
-        head: [Array.from(table.querySelector('thead tr').cells).map(cell => cell.textContent)],
-        body: body,
-        styles: {
-            cellPadding: 3,
-            fontSize: 10,
-            halign: 'left',
-            valign: 'middle',
-            overflow: 'linebreak',
-            tableWidth: 'wrap'
-        }
-    });
-
-    doc.save('datos_filtrados.pdf');
+            // Funcionalidad de descarga en PDF
+            downloadPdf.addEventListener('click', function () {
+                const printWindow = window.open('', '', 'height=600,width=800');
+                printWindow.document.write('<html><head><title>Datos desde Google Sheets</title>');
+                printWindow.document.write('<link rel="stylesheet" href="styles.css">');
+                printWindow.document.write('</head><body>');
+                printWindow.document.write('<h1>Datos desde Google Sheets</h1>');
+                printWindow.document.write(dataTable.outerHTML);
+                printWindow.document.write('</body></html>');
+                printWindow.document.close();
+                printWindow.print();
+            });
+        })
+        .catch(err => console.error('Error fetching data from Google Sheets:', err));
 });

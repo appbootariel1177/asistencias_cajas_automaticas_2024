@@ -3,19 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Herramientas digitales ZonaD</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Google Sheets Data</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            text-align: center;
+            width: 80%;
+            margin: auto;
+        }
+
+        h1 {
+            color: #ff8c00;
+            margin-bottom: 20px;
+        }
+
+        #searchInput {
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: none;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid #fff;
+            padding: 10px;
+            text-align: left;
+        }
+
+        thead {
+            background-color: #ff8c00;
+        }
+
+        tbody tr {
+            background-color: #333;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #444;
+        }
+
+        tbody tr:hover {
+            background-color: #555;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #ff8c00;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #ff6500;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <h1>ZonaD</h1>
-        <input type="text" id="searchInput" placeholder="Buscar...">
+        <h1>zonaD Herramientas digitales</h1>
+        <input type="text" id="searchInput" placeholder="Search...">
         <table id="dataTable">
             <thead id="tableHeaders"></thead>
             <tbody id="tableBody"></tbody>
         </table>
-        <button id="downloadPdf">Descargar PDF</button>
+        <button id="downloadPdf">Download PDF</button>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.13/jspdf.plugin.autotable.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

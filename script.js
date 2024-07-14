@@ -64,8 +64,10 @@ document.addEventListener('DOMContentLoaded', function () {
                 const { jsPDF } = window.jspdf;
                 const doc = new jsPDF();
 
-                doc.text('Datos desde Google Sheets', 10, 10, { angle: 90 });
+                // Configurar título en vertical
+                doc.text('Datos desde Google Sheets', 15, 15, { angle: 90 });
 
+                // Preparar datos de la tabla
                 const head = [];
                 const body = [];
 
@@ -81,6 +83,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     body.push(row);
                 });
 
+                // Generar tabla en el PDF
                 doc.autoTable({
                     head: [head],
                     body: body,
@@ -91,6 +94,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     },
                 });
 
+                // Descargar el PDF
                 doc.save('data.pdf');
             });
         })

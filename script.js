@@ -66,11 +66,13 @@ document.addEventListener('DOMContentLoaded', function () {
                 const printWindow = window.open('', '', 'height=600,width=800');
                 printWindow.document.write('<html><head><title>Datos desde Google Sheets</title>');
                 printWindow.document.write('<link rel="stylesheet" href="styles.css">');
+                printWindow.document.write('<style>h1 { writing-mode: vertical-rl; transform: rotate(180deg); }</style>');
                 printWindow.document.write('</head><body>');
-                printWindow.document.write('<h1 style="writing-mode: vertical-rl; transform: rotate(180deg);">ZonaD</h1>');
+                printWindow.document.write('<h1>Datos desde Google Sheets</h1>');
                 printWindow.document.write(dataTable.outerHTML);
                 printWindow.document.write('</body></html>');
                 printWindow.document.close();
+                printWindow.focus();
                 printWindow.print();
             });
         })

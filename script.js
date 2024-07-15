@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 printWindow.document.write('<html><head><title>Gestion de datos zona D</title>');
                 printWindow.document.write('<link rel="stylesheet" href="styles.css">');
                 printWindow.document.write('</head><body>');
-                printWindow.document.write('<h1>Tools ariel</h1>');
+                printWindow.document.write('<h1>Tools zonaD</h1>');
                 printWindow.document.write(dataTable.outerHTML);
                 printWindow.document.write('</body></html>');
                 printWindow.document.close();

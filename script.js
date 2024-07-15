@@ -33,13 +33,15 @@ document.addEventListener('DOMContentLoaded', function () {
             rows.forEach(row => {
                 const tr = document.createElement('tr');
                 row.forEach((cell, index) => {
-                    if (columnsWithData[index]) {
+                    if (columnsWithData[index] && cell !== '') {
                         const td = document.createElement('td');
                         td.innerText = cell;
                         tr.appendChild(td);
                     }
                 });
-                tableBody.appendChild(tr);
+                if (tr.childElementCount > 0) {
+                    tableBody.appendChild(tr);
+                }
             });
 
             // Funcionalidad de filtrado
@@ -61,41 +63,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // Funcionalidad de descarga en PDF
             downloadPdf.addEventListener('click', function () {
-                const { jsPDF } = window.jspdf;
-                const doc = new jsPDF();
-
-                // Configurar título en vertical
-                doc.text('zonaD tools', 15, 15, { angle: 90 });
-
-                // Preparar datos de la tabla
-                const head = [];
-                const body = [];
-
-                tableHeaders.querySelectorAll('th').forEach(th => {
-                    head.push(th.innerText);
-                });
-
-                tableBody.querySelectorAll('tr').forEach(tr => {
-                    const row = [];
-                    tr.querySelectorAll('td').forEach(td => {
-                        row.push(td.innerText);
-                    });
-                    body.push(row);
-                });
-
-                // Generar tabla en el PDF
-                doc.autoTable({
-                    head: [head],
-                    body: body,
-                    startY: 20,
-                    styles: {
-                        halign: 'left',
-                        valign: 'middle',
-                    },
-                });
-
-                // Descargar el PDF
-                doc.save('data.pdf');
+                const printWindow = window.open('', '', 'height=600,width=800');
+                printWindow.document.write('<html><head><title>Datos desde Google Sheets</title>');
+                printWindow.document.write('<link rel="stylesheet" href="styles.css">');
+                printWindow.document.write('</head><body>');
+printWindow.document.write('<h1 style="writing-mode: vertical-rl; transform: rotate(180deg);">Tools ariel</h1>');                printWindow.document.write(dataTable.outerHTML);
+                printWindow.document.write('</body></html>');
+                printWindow.document.close();
+                printWindow.print();
             });
         })
         .catch(err => console.error('Error fetching data from Google Sheets:', err));

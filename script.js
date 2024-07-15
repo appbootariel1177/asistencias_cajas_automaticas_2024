@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const sheetId = '1QYYRt7uN6RJbAuyp7ZFAuOKg1ANG5QqVJdpDk0AFKdw';
+    const sheetId = '1hlBL-lgwdM07aTls8tUyaIMw2eQRFGqayEe1ir5ZQxQ';
     const base = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?`;
     const sheetName = 'Hoja 1';
     const query = encodeURIComponent('Select *');
@@ -17,31 +17,25 @@ document.addEventListener('DOMContentLoaded', function () {
             const headers = data.table.cols.map(col => col.label);
             const rows = data.table.rows.map(row => row.c.map(cell => (cell ? cell.v : '')));
 
-            // Determinar qué columnas tienen datos
-            const columnsWithData = headers.map((header, index) => rows.some(row => row[index] !== ''));
+            // Asegurar que el primer elemento de 'rows' es el encabezado
+            const headersRow = rows.shift(); // Remover la primera fila y almacenarla como encabezados
 
-            // Agregar solo encabezados de columnas que tienen datos
-            headers.forEach((header, index) => {
-                if (columnsWithData[index]) {
-                    const th = document.createElement('th');
-                    th.innerText = header;
-                    tableHeaders.appendChild(th);
-                }
+            // Agregar encabezados de columna fijos
+            headersRow.forEach((header) => {
+                const th = document.createElement('th');
+                th.innerText = header;
+                tableHeaders.appendChild(th);
             });
 
             // Agregar filas a la tabla
             rows.forEach(row => {
                 const tr = document.createElement('tr');
                 row.forEach((cell, index) => {
-                    if (columnsWithData[index] && cell !== '') {
-                        const td = document.createElement('td');
-                        td.innerText = cell;
-                        tr.appendChild(td);
-                    }
+                    const td = document.createElement('td');
+                    td.innerText = cell;
+                    tr.appendChild(td);
                 });
-                if (tr.childElementCount > 0) {
-                    tableBody.appendChild(tr);
-                }
+                tableBody.appendChild(tr);
             });
 
             // Funcionalidad de filtrado
@@ -64,10 +58,11 @@ document.addEventListener('DOMContentLoaded', function () {
             // Funcionalidad de descarga en PDF
             downloadPdf.addEventListener('click', function () {
                 const printWindow = window.open('', '', 'height=600,width=800');
-                printWindow.document.write('<html><head><title>Datos desde Google Sheets</title>');
+                printWindow.document.write('<html><head><title>Gestion de datos zona D</title>');
                 printWindow.document.write('<link rel="stylesheet" href="styles.css">');
                 printWindow.document.write('</head><body>');
-printWindow.document.write('<h1 style="writing-mode: vertical-rl; transform: rotate(180deg);">Tools ariel</h1>');                printWindow.document.write(dataTable.outerHTML);
+                printWindow.document.write('<h1>Tools ariel</h1>');
+                printWindow.document.write(dataTable.outerHTML);
                 printWindow.document.write('</body></html>');
                 printWindow.document.close();
                 printWindow.print();

@@ -5,18 +5,26 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
     margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 .container {
     text-align: center;
-    width: 80%;
+    width: 100%;
+    max-width: 1200px;
     margin: auto;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 0 15px #00f, 0 0 30px #00f; /* Luz azul flotante */
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 h1 {
-    color: #ff8c00;
+    color: #00f;
     margin-bottom: 20px;
 }
 
@@ -25,6 +33,9 @@ h1 {
     margin-bottom: 20px;
     border-radius: 5px;
     border: none;
+    width: calc(100% - 20px);
+    max-width: 300px;
+    box-sizing: border-box;
 }
 
 table {
@@ -32,47 +43,81 @@ table {
     border-collapse: separate;
     border-spacing: 0;
     margin-bottom: 20px;
-    border: 2px solid transparent;
     border-radius: 15px;
-    box-shadow: 0 0 10px rgba(255, 140, 0, 0.5), 0 0 20px rgba(255, 140, 0, 0.5), 0 0 30px rgba(255, 140, 0, 0.5);
-    background-clip: padding-box;
-    background-color: #000;
+    overflow: hidden;
 }
 
 th, td {
-    padding: 10px;
+    border: none;
+    padding: 5px 10px;
     text-align: left;
+    word-wrap: break-word; /* Para que el texto se ajuste en celdas pequeñas */
 }
 
 thead {
-    background-color: #ff8c00;
+    background-color: #00f; /* Fondo azul */
+    color: #fff; /* Texto blanco */
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
 }
 
 tbody tr {
-    border-bottom: 1px solid #fff;
-}
-
-tbody tr:last-child {
-    border-bottom: none;
+    background-color: #333;
+    border-bottom: 1px solid #555; /* Azul suave */
 }
 
 tbody tr:nth-child(even) {
-    background-color: #333;
+    background-color: #444;
+    border-bottom: 1px solid #555; /* Azul suave */
 }
 
 tbody tr:hover {
     background-color: #555;
 }
 
+tbody tr:last-child {
+    border-bottom: none;
+}
+
 button {
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
-    background-color: #ff8c00;
+    background-color: #00f;
     color: #fff;
     cursor: pointer;
 }
 
 button:hover {
-    background-color: #ff6500;
+    background-color: #008cff;
+}
+
+/* Consultas de medios para diferentes tamaños de pantalla */
+@media (max-width: 768px) {
+    th, td {
+        padding: 5px;
+    }
+    
+    #searchInput {
+        width: calc(100% - 10px);
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    th, td {
+        padding: 2px 5px;
+    }
+    
+    #searchInput {
+        width: 100%;
+    }
+    
+    button {
+        padding: 8px 16px;
+    }
+    
+    h1 {
+        font-size: 1.5em;
+    }
 }

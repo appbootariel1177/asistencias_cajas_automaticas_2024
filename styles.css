@@ -17,14 +17,14 @@
     align-items: center;
     min-height: 100vh;
     margin: 0;
-    padding: 20px;
+    padding: 10px;
     box-sizing: border-box;
 }
 
 .container {
     text-align: center;
     width: 100%;
-    max-width: 1200px;
+    max-width: 12000px;
     margin: auto;
     border-radius: 15px;
     overflow: hidden;
@@ -60,7 +60,7 @@ table {
 th, td {
     border: none;
     padding: 5px 10px;
-    text-align: left;
+    text-align: center;
     word-wrap: break-word; /* Para que el texto se ajuste en celdas pequeñas */
 }
 

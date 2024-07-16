@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const sheetId = '18HU5JRHomhDoOXFxzF35EdOEID-cE1hc714zSG3rQ9c'; // ID de la hoja de cálculo de Google
+    const sheetId = '1hlBL-lgwdM07aTls8tUyaIMw2eQRFGqayEe1ir5ZQxQ'; // ID de la hoja de cálculo de Google
     const base = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?`; // URL base para la API de visualización de Google Sheets
     const sheetName = 'Hoja 1'; // Nombre de la hoja dentro del archivo de Google Sheets
     const query = encodeURIComponent('Select *'); // Consulta para seleccionar todos los datos

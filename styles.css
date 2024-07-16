@@ -58,7 +58,6 @@ table {
 }
 
 th, td {
-    border: none;
     padding: 5px 10px;
     text-align: center;
     word-wrap: break-word; /* Para que el texto se ajuste en celdas pequeñas */

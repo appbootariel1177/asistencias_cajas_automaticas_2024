@@ -70,17 +70,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
             // Funcionalidad de descarga en PDF
             downloadPdf.addEventListener('click', function () {
-                const printWindow = window.open('', '', 'height=600,width=800'); // Abre una nueva ventana para imprimir
-                printWindow.document.write('<html><head><title>Gestion de datos Zona D</title>'); // Escribe el encabezado del documento
-                printWindow.document.write('<link rel="stylesheet" href="styles.css">'); // Incluye una hoja de estilos
-                printWindow.document.write('</head><body>'); // Cierra el encabezado y abre el cuerpo del documento
-                // Agrega un título vertical y la tabla al documento de impresión
-                printWindow.document.write('<h1 style="writing-mode: vertical-rl; transform: rotate(180deg);">Tools ariel</h1>');                
+                const printWindow = window.open('', '', 'height=500, width=800'); // Abre una nueva ventana para la impresión
+                printWindow.document.write('<html><head><title>Zona D tools - Asistencias Cajas automáticas m-II 2024</title>'); // Añade el título al documento
+                printWindow.document.write('<style>table { width: 100%; border-collapse: collapse; } th, td { border: 1px solid #ddd; padding: 8px; text-align: center; }</style>'); // Añade estilos CSS al documento
+                printWindow.document.write('</head><body>'); // Inicia el cuerpo del documento
+                printWindow.document.write('<h3>Asistencias Cajas automáticas m-II 2024</h3>'); // Añade el encabezado al documento
                 printWindow.document.write(dataTable.outerHTML); // Añade la tabla completa al documento
-                printWindow.document.write('</body></html>'); // Cierra el cuerpo y el documento
+                printWindow.document.write('</body></html>'); // Cierra el cuerpo del documento
                 printWindow.document.close(); // Cierra el documento
-                printWindow.print(); // Inicia la impresión
+                printWindow.print(); // Abre el diálogo de impresión
             });
         })
-        .catch(err => console.error('Error fetching data from Google Sheets:', err)); // Manejo de errores en la obtención de datos
+        .catch(err => console.error('Error fetching data:', err)); // Muestra cualquier error que ocurra durante la obtención de datos
 });

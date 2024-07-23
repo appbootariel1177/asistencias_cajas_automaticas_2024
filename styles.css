@@ -1,6 +1,6 @@
 body {
-    background-color: #333; /* Fondo gris oscuro */
-    color: #ccc; /* Texto color claro */
+    background-color: #f0f0f0; /* Fondo gris claro */
+    color: #333; /* Texto color oscuro */
     font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
@@ -14,17 +14,18 @@ body {
 .container {
     text-align: center;
     width: 100%;
-    max-width: 1200px;
+    max-width: 900px;
     margin: auto;
     border-radius: 15px;
     overflow: hidden;
     padding: 20px;
     box-sizing: border-box;
-    background-color: #444; /* Fondo gris más oscuro */
+    background-color: #ffffff; /* Fondo blanco */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra */
 }
 
-h1 {
-    color: #eee; /* Texto blanco */
+h3 {
+    color: #333; /* Texto oscuro */
     margin-bottom: 20px;
 }
 
@@ -32,53 +33,56 @@ h1 {
     padding: 10px;
     margin-bottom: 20px;
     border-radius: 5px;
-    border: none;
-    width: calc(100% - 20px);
+    border: 1px solid #ccc;
+    width: calc(100% - 22px);
     max-width: 300px;
     box-sizing: border-box;
 }
 
 table {
     width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
+    border-collapse: collapse;
     margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra */
+    border-radius: 10px; /* Bordes redondeados */
+    overflow: hidden; /* Ocultar bordes de las celdas */
 }
 
 th, td {
-    border-bottom: 1px solid #555; /* Línea debajo de cada fila */
+    border-bottom: 1px solid #ddd; /* Línea debajo de cada fila */
     padding: 10px;
     text-align: center;
 }
 
 thead {
-    background-color: #555; /* Fondo gris */
+    background-color: #007bff; /* Fondo azul */
     color: #fff; /* Texto blanco */
 }
 
 tbody tr {
-    background-color: #666; /* Fondo gris */
+    background-color: #f9f9f9; /* Fondo gris claro */
 }
 
 tbody tr:nth-child(even) {
-    background-color: #777; /* Fondo gris más claro */
+    background-color: #e9e9e9; /* Fondo gris más claro */
 }
 
 tbody tr:hover {
-    background-color: #888; /* Fondo gris al pasar el cursor */
+    background-color: #d1ecf1; /* Fondo azul claro al pasar el cursor */
 }
 
 button {
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
-    background-color: rgba(255, 251, 0, 0.134);
+    background-color: #007bff; /* Fondo azul */
     color: #fff;
     cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra */
 }
 
 button:hover {
-    background-color: #008cff;
+    background-color: #0056b3; /* Fondo azul más oscuro */
 }
 
 /* Consultas de medios para diferentes tamaños de pantalla */
@@ -86,9 +90,9 @@ button:hover {
     th, td {
         padding: 8px;
     }
-    
+
     #searchInput {
-        width: calc(100% - 10px);
+        width: calc(100% - 12px);
         margin-bottom: 10px;
     }
 }
@@ -97,16 +101,16 @@ button:hover {
     th, td {
         padding: 6px;
     }
-    
+
     #searchInput {
         width: 100%;
     }
-    
+
     button {
         padding: 8px 16px;
     }
-    
-    h1 {
+
+    h3 {
         font-size: 1.5em;
     }
 }
